@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write # Necessário para comentar no PR
+      pull-requests: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -17,13 +17,13 @@ jobs:
           fetch-depth: 0
 
       - name: AI Reviewer
-        uses: anc95/ChatGPT-CodeReview@main # Action que orquestra a revisão
+        uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.AI_API_KEY }} # Funciona com Gemini via proxy ou OpenAI nativo
+          OPENAI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_ENDPOINT: https://generativelanguage.googleapis.com/v1beta/openai
           LANGUAGE: Portuguese
-          MODEL: gemini-2.0-flash # Ajuste para o modelo configurado
+          MODEL: gemini-2.0-flash
           PROMPT: |
             Aja como um Engenheiro de Segurança Sênior (DevSecOps). 
             Analise o DIFF deste Pull Request buscando:
